@@ -6,4 +6,4 @@ Para correr el código debe de tener las siguientes librerías instaladas:
 - Random
 - Time
   
-Si no las tiene instaladas, usar el comando "pip install (nombre de la librería)" en la consola para instalarlas
+Si no las tiene instaladas, debe de usar el comando "pip install (nombre de la librería)" en la consola.
