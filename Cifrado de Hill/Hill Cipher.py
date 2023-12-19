@@ -46,7 +46,7 @@ def HillCipher(message,key):
 
     if(len(message) <= len(key)):
         while(len(message) < len(key)):
-            message = message + ' ' #Rellena con X hasta que sea del mismo tamaño que la matriz
+            message = message + ' ' #Rellena con espacios hasta que sea del mismo tamaño que la matriz
         
         for i in range(len(message)): #Se genera el vector mensaje
             messageVector.append(encryptDictionary[message[i]])
@@ -60,7 +60,7 @@ def HillCipher(message,key):
         for i in range(len(C)):
             cipherMessage += decryptDictionary[str(C[i])]
     else:
-        #Rellena eel mensaje con X hasta que sea múltiplo del tamaño de Key
+        #Rellena eel mensaje con espacios hasta que sea múltiplo del tamaño de Key
         while( len(message) % len(key) != 0 ):
             message = message + ' '
             
@@ -112,7 +112,7 @@ def HillDecipher(cmessage, key):
         
         temp = []
         
-    #Remueve los X añadidos al cifrar el mensaje
+    #Remueve los espacios añadidos al cifrar el mensaje
     while(decipherMessage[-1] == ' '):
         decipherMessage = decipherMessage[:-1]
     
