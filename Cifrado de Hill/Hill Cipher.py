@@ -6,10 +6,10 @@ import time
 
 #Diccionarios para encriptar y desencriptar
 encryptDictionary = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'K': 10, 'L': 11,
-            'M': 12, 'N': 13, 'Ñ': 14, 'O': 15, 'P': 16, 'Q': 17, 'R': 18, 'S': 19, 'T': 20, 'U': 21, 'V': 22, 'W': 23, 'X': 24, 'Y': 25, 'Z':26}
+            'M': 12, 'N': 13, ' ': 14, 'O': 15, 'P': 16, 'Q': 17, 'R': 18, 'S': 19, 'T': 20, 'U': 21, 'V': 22, 'W': 23, 'X': 24, 'Y': 25, 'Z':26}
 
 decryptDictionary = {'0' : 'A', '1': 'B', '2': 'C', '3': 'D', '4': 'E', '5': 'F', '6': 'G', '7': 'H', 
-            '8': 'I', '9': 'J', '10': 'K', '11': 'L', '12': 'M', '13': 'N', '14': 'Ñ', '15': 'O', 
+            '8': 'I', '9': 'J', '10': 'K', '11': 'L', '12': 'M', '13': 'N', '14': ' ', '15': 'O', 
             '16': 'P', '17': 'Q', '18': 'R', '19': 'S', '20': 'T', '21': 'U', '22': 'V', '23': 'W', '24': 'X', '25': 'Y', '26': 'Z'}
             
 #Genera la matriz key aleatoriamente asegurándose de que sea inv mod 27
@@ -46,7 +46,7 @@ def HillCipher(message,key):
 
     if(len(message) <= len(key)):
         while(len(message) < len(key)):
-            message = message + 'X' #Rellena con X hasta que sea del mismo tamaño que la matriz
+            message = message + ' ' #Rellena con X hasta que sea del mismo tamaño que la matriz
         
         for i in range(len(message)): #Se genera el vector mensaje
             messageVector.append(encryptDictionary[message[i]])
@@ -62,7 +62,7 @@ def HillCipher(message,key):
     else:
         #Rellena eel mensaje con X hasta que sea múltiplo del tamaño de Key
         while( len(message) % len(key) != 0 ):
-            message = message + 'X'
+            message = message + ' '
             
         #Convierte el vector en una matriz
         messageVector = [message[i:i + len(key)] for i in range(0, len(message), len(key))]
@@ -113,7 +113,7 @@ def HillDecipher(cmessage, key):
         temp = []
         
     #Remueve los X añadidos al cifrar el mensaje
-    while(decipherMessage[-1] == 'X'):
+    while(decipherMessage[-1] == ' '):
         decipherMessage = decipherMessage[:-1]
     
     return decipherMessage
@@ -125,22 +125,25 @@ def main():
     C = ""
     M = ""
     D = ""
-    
-    size = int(input("Ingrese el tamaño de la matriz cuadrada(key): "))
-    key = GenKey(size)
-    
-    print("La matriz Key es: \n", key)
-    M = input("Ingrese el mensaje a cifrar: ")
-    C = HillCipher(M, key)
-    
-    print("El mensaje cifrado es: ", C)
-    
-    inicio = time.time()
-    print("Descrifrando mensaje...")
-    D = HillDecipher(C,key)
-    fin = time.time()
-    print("El mensaje descifrado es: ", D)
-    print("Tiempo de descifrado: ", fin-inicio)
+    while(True):
+        size = int(input("Ingrese el tamaño de la matriz cuadrada(key): "))
+        key = GenKey(size)
+        
+        print("La matriz Key es: \n", key)
+        M = input("Ingrese el mensaje a cifrar: ")
+        C = HillCipher(M, key)
+        
+        print("El mensaje cifrado es: ", C)
+        
+        inicio = time.time()
+        print("Descrifrando mensaje...")
+        D = HillDecipher(C,key)
+        fin = time.time()
+        print("El mensaje descifrado es: ", D)
+        print("Tiempo de descifrado: ", fin-inicio)
+        aux = input("Escriba \"Salir\" si desea salir, de lo contrario, presione Enter: ")
+        if(aux == "Salir" or aux == "salir"):
+            break
 
 main()
     
